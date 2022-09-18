@@ -1,156 +1,48 @@
 #include "functions.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include "test.h"
 
 int main() {
 #ifdef PUTS 
-    printf("Testing Puts:\n");
-
-    for (int i = 0; i < 8; ++i) {
-        Puts(data[i]);
-        puts(data[i]);
-        printf("%d %d\n", Puts(data[i]), puts(data[i]));
-        printf("\n");
-    }
+    test_puts();
 
 #elif STRCHR
-    const char* data[] = {"absdvsv", "svasfvas", "aaaaaa", "", " ", "1234567890", "Symon", "ccccccc"};
-    printf("Testing Strchr\n");
-
-    for (int i = 0; i < 8; ++i) {
-        printf("%p %p\n", Strchr(data[i], 'a'), strchr(data[i], 'a'));
-    }
+    test_strchr();
 
 #elif STRLEN
-    const char* data[] = {"absdvsv", "svasfvas", "aaaaaa", "", " ", "1234567890", "Symon", "ccccccc"};
-    printf("Testing Strlen:\n");
-
-    for (int i = 0; i < 8; ++i) {
-        printf("%ld %ld\n", Strlen(data[i]), strlen(data[i]));
-    }
+    test_strlen();
 
 #elif STRCPY
-    const char* data[] = {"absdvsv", "svasfvas", "aaaaaa", "", " ", "1234567890", "Symon", "ccccccc"};
-    printf("Testing Strcpy:\n");
-    
-    for (int i = 0; i < 8; ++i) {
-        char tmp[20];
-        scanf("%s", tmp);
-
-        printf("%s %s\n", Strcpy(tmp, data[i]), strcpy(tmp, data[i]));
-        printf("%p %p\n", Strcpy(tmp, data[i]), strcpy(tmp, data[i]));
-    }
+    test_strcpy();
 
 #elif STRNCPY
-    const char* data[] = {"absdvsv", "svasfvas", "aaaaaa", "", " ", "1234567890", "Symon", "ccccccc"};
-    printf("Testing Strncpy:\n");
-
-    for (int i = 0; i < 8; ++i) {
-        char tmp[20];
-        scanf("%s", tmp);
-
-        printf("%s %s\n", Strncpy(tmp, data[i], i + 1), strncpy(tmp, data[i], i + 1));
-        printf("%p %p\n", Strncpy(tmp, data[i], i + 1), strncpy(tmp, data[i], i + 1));
-    }
+    test_strncpy();    
 
 #elif FGETS
-    char buffer[300];
-
-    printf("Testing Fgets:\n");
-    FILE* file = fopen("test.txt", "r");
-
-    while (!feof(file)) {
-        Fgets(buffer, 300, file);
-        printf("%s\n", buffer);
-    }
-
-    fclose(file);
+    test_fgets();
 
 #elif STRDUP
-    printf("Testing Strdup\n");
-    char str[] = "sdasdcsdcsvsdv vvqrvq";
-    char* dupstr = Strdup(str);
-    printf("%s  %s\n", str, dupstr);
-    printf("%p %p\n", str, dupstr);
-    free(dupstr);
+   test_strdup();
 
 #elif GETLINE
-    printf("Testing Getline\n");
-    FILE* file = fopen("test.txt", "r");
-    FILE* file1 = fopen("test.txt", "r");
+    test_getline();
 
-    int n = 15;
-    size_t n1 = 15;
-    char* buffer = (char*)calloc(n, sizeof(char));
-    char* buffer1 = (char*)calloc(n, sizeof(char));
+#elif STRCAT
+    test_strcat();
 
-    printf("%d %ld\n", Getline(&buffer, &n, file), getline(&buffer1, &n1, file1));
-    printf("%s%s", buffer, buffer1);
-
-    fclose(file);
-    fclose(file1);
-
-    free(buffer);
-    free(buffer1);
+#elif STRNCAT
+    test_strncat();
 
 
 #else 
-    const char* data[] = {"absdvsv", "svasfvas", "aaaaaa", "", " ", "1234567890", "Symon", "ccccccc"};
-    
-    printf("Testing Puts:\n");
-
-    for (int i = 0; i < 8; ++i) {
-        Puts(data[i]);
-        puts(data[i]);
-        printf("%d %d\n", Puts(data[i]), puts(data[i]));
-        printf("\n");
-    }
-
-    printf("Testing Strlen:\n");
-
-    for (int i = 0; i < 8; ++i) {
-        printf("%ld %ld\n", Strlen(data[i]), strlen(data[i]));
-    }
-
-    printf("Testing Strcpy:\n");
-    
-    for (int i = 0; i < 8; ++i) {
-        char tmp[20];
-        scanf("%s", tmp);
-
-        printf("%s %s\n", Strcpy(tmp, data[i]), strcpy(tmp, data[i]));
-        printf("%p %p\n", Strcpy(tmp, data[i]), strcpy(tmp, data[i]));
-    }
-
-    printf("Testing Strncpy:\n");
-
-    for (int i = 0; i < 8; ++i) {
-        char tmp[20];
-        scanf("%s", tmp);
-
-        printf("%s %s\n", Strncpy(tmp, data[i], i + 1), strncpy(tmp, data[i], i + 1));
-        printf("%p %p\n", Strncpy(tmp, data[i], i + 1), strncpy(tmp, data[i], i + 1));
-    }
-
-    char buffer[300];
-
-    printf("Testing Fgets:\n");
-    FILE* file = fopen("test.txt", "r");
-
-    while (!feof(file)) {
-        Fgets(buffer, 300, file);
-        printf("%s\n", buffer);
-    }
-
-    fclose(file);
-
-    printf("Testing Strdup\n");
-    char str[] = "sdasdcsdcsvsdv vvqrvq";
-    char* dupstr = Strdup(str);
-    printf("%s  %s\n", str, dupstr);
-    printf("%p %p\n", str, dupstr);
-    free(dupstr);
-
+    test_puts();
+    test_strchr();
+    test_strlen();
+    test_strcpy();
+    test_strncpy();
+    test_strcat();
+    test_strncat();
+    test_fgets();
+    test_strdup();
+    test_getline();
 #endif
 }
