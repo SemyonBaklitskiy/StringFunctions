@@ -116,14 +116,12 @@ char* Fgets(char* str, int n, FILE* stream) {
         ++i;
     }
 
-    if (i == 0 || ferror(stream)) {
+    if (i == 0 || ferror(stream)) 
         return NULL;
 
-    }   else {
-        str[i - 1] = '\n';
-        str[i] = '\0';
-        return str;
-    }
+    str[i - 1] = '\n';
+    str[i] = '\0';
+    return str;
 }
 
 char* Strdup(const char* str) {
@@ -132,12 +130,10 @@ char* Strdup(const char* str) {
     int size = Strlen(str) + 1;
     char* dupstr = (char*)calloc(size, sizeof(char));
 
-    if (dupstr == NULL) {
+    if (dupstr == NULL) 
         return NULL;
 
-    }   else {
-        return Strcpy(dupstr, str);
-    }
+    return Strcpy(dupstr, str);
 }
 
 int size_of_string(FILE* stream) {
@@ -163,25 +159,31 @@ int Getline(char** lineptr, int* n, FILE* stream) {
         char* buffer = NULL;
         buffer = Fgets(*lineptr, *n, stream);
 
-        if (buffer == NULL) {
+        if (buffer == NULL) 
             return -1;
 
-        }   else {
-            return size;
-        }
+        return size;
 
-    }   else {
+    } else if ((*n < size + 1) && (*lineptr != NULL)) {
+        char* buffer = NULL;
+        *n = size + 1;
+        buffer = (char*)realloc(*lineptr, (size + 1) * sizeof(char));
+        buffer = Fgets(*lineptr, *n, stream);
+
+        if (buffer == NULL) 
+            return -1;
+
+        return size;
+
+    } else {
         char* buffer = (char*)calloc(size + 1, sizeof(char));
         *lineptr = buffer;
         *n = size + 1;
         buffer = Fgets(*lineptr, *n, stream);
 
-        if (buffer == NULL) {
+        if (buffer == NULL) 
             return -1;
 
-        }   else {
-            return size;
-        }
+        return size;  
     }   
-
 }
